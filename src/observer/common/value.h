@@ -45,6 +45,7 @@ public:
   explicit Value(float val);
   explicit Value(bool val);
   explicit Value(const char *s, int len = 0);
+  explicit Value(const char *date, int len, int flag);
 
   Value(const Value &other);
   Value(Value &&other);
@@ -89,6 +90,7 @@ public:
   void set_data(const char *data, int length) { this->set_data(const_cast<char *>(data), length); }
   void set_value(const Value &value);
   void set_boolean(bool val);
+  void set_date(int val);
 
   string to_string() const;
 
@@ -108,6 +110,7 @@ public:
   float  get_float() const;
   string get_string() const;
   bool   get_boolean() const;
+  int get_date() const;
 
 private:
   void set_int(int val);
@@ -125,6 +128,7 @@ private:
     float   float_value_;
     bool    bool_value_;
     char   *pointer_value_;
+
   } value_ = {.int_value_ = 0};
 
   /// 是否申请并占有内存, 目前对于 CHARS 类型 own_data_ 为true, 其余类型 own_data_ 为false
